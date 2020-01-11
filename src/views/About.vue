@@ -1,5 +1,19 @@
 <template>
-  <div class="about">
-    <h1>This is an about page</h1>
-  </div>
+  <v-content>
+    <div class="about">
+      <SmelloWorld who="fools, thunder cross split attack"></SmelloWorld>
+    </div>
+  </v-content>
 </template>
+
+<script>
+import SmelloWorld from "@/components/SmelloWorld.vue";
+
+export default {
+  components: {
+    SmelloWorld
+  }
+};
+</script>
+
+<style scoped></style>
