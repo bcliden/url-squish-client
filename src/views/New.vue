@@ -28,9 +28,9 @@
                   :rules="nameRules"
                 />
                 <v-checkbox
-                  v-model="publicBool"
+                  v-model="isPublic"
                   label="Public?"
-                  name="public"
+                  name="isPublic"
                   type="checkbox"
                 ></v-checkbox>
               </v-form>
@@ -53,12 +53,13 @@
 
 <script>
 import { urlRegex, whitespaceRegex, baseURL } from "@/consts/consts.js";
+import ky from "ky";
 
 export default {
   data() {
     return {
       valid: false,
-      publicBool: false,
+      isPublic: false,
       url: "",
       title: "",
       urlRules: [
@@ -72,13 +73,25 @@ export default {
     };
   },
   methods: {
-    submit() {
-      console.log(
-        `url: ${this.url}`,
-        `title: ${this.title}`,
-        `public?: ${this.publicBool}`,
-        baseURL
-      );
+    async submit() {
+      const { url, title, isPublic } = this;
+      const linkDTO = {
+        url,
+        title,
+        isPublic
+      };
+      try {
+        const response = await ky
+          .post(`${baseURL}/link/`, { json: linkDTO })
+          .json();
+        this.$router.push({
+          name: "detail",
+          params: { id: response.publicId }
+        });
+      } catch (error) {
+        debugger;
+        console.error(error);
+      }
     }
   }
 };

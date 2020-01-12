@@ -3,5 +3,5 @@ export const urlRegex = /((([A-Za-z]{3,9}:(?:\/\/)?)(?:[\-;:&=\+\$,\w]+@)?[A-Za-
 export const whitespaceRegex = /[^\s-]/;
 
 export const baseURL = location.origin.includes("localhost")
-  ? "http://localhost:3000"
+  ? "http://localhost:3000/api"
   : "heroku URL probably";
