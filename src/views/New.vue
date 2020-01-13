@@ -75,6 +75,9 @@ export default {
   methods: {
     async submit() {
       const { url, title, isPublic } = this;
+      if (!url.includes("http://") && !url.includes("https://")) {
+        url = "http://" + url;
+      }
       const linkDTO = {
         url,
         title,
@@ -89,7 +92,6 @@ export default {
           params: { id: response.publicId }
         });
       } catch (error) {
-        debugger;
         console.error(error);
       }
     }
