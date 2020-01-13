@@ -1,28 +1,50 @@
 <template>
   <v-content>
-    <v-container fluid class="fill-height">
-      <v-row>
-        <v-col cols="12" sm="12" md="4">
-          <v-card class="elevation-12">
-            <v-toolbar color="indigo" dark>
-              <v-toolbar-title>Detail</v-toolbar-title>
-            </v-toolbar>
-            <v-card-text>
-              Looking to smush some URLs? You've come to the right place.
-            </v-card-text>
-            <v-card-actions>
-              <v-spacer />
-              <v-btn color="primary" to="/new">Shorten</v-btn>
-            </v-card-actions>
-          </v-card>
-        </v-col>
-      </v-row>
+    <v-container fluid>
+      <v-data-table
+        :headers="headers"
+        :items="rows"
+        :items-per-page="size"
+        class="elevation-1"
+      >
+        <template v-slot:item.url="{ item }">
+          <a :href="item.url">{{ item.url }}</a>
+        </template>
+      </v-data-table>
     </v-container>
   </v-content>
 </template>
 
 <script>
-export default {};
+import ky from "ky";
+import { baseURL } from "../consts/consts";
+
+export default {
+  data() {
+    return {
+      rows: [],
+      headers: [],
+      size: 10
+    };
+  },
+  computed() {},
+  async created() {
+    try {
+      let rows = await ky.get(`${baseURL}/link/`).json();
+      rows = rows.map(v => {
+        const { id, ...rest } = v; // we strip off the id field
+        return {
+          ...rest,
+          created: new Date(v.created).toLocaleDateString()
+        };
+      });
+      this.rows = rows;
+      this.headers = Object.keys(rows[0]).map(v => ({ text: v, value: v }));
+    } catch (error) {
+      console.error(error);
+    }
+  }
+};
 </script>
 
 <style scoped></style>

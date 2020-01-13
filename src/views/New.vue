@@ -20,12 +20,12 @@
                 />
                 <v-text-field
                   v-model="title"
-                  label="Name"
-                  name="name"
+                  label="Title"
+                  name="title"
                   prepend-icon="mdi-text"
                   type="text"
                   required
-                  :rules="nameRules"
+                  :rules="titleRules"
                 />
                 <v-checkbox
                   v-model="isPublic"
@@ -66,7 +66,7 @@ export default {
         v => !!v || "URL is required",
         v => urlRegex.test(v) || "URL is malformed"
       ],
-      nameRules: [
+      titleRules: [
         v => !!v || "Title is required",
         v => whitespaceRegex.test(v) || "Please enter text"
       ]

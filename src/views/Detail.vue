@@ -3,20 +3,7 @@
     <v-container fluid class="fill-height">
       <v-row align="center" justify="center">
         <v-col cols="12" sm="12" md="4">
-          <v-card class="elevation-12">
-            <v-toolbar color="indigo" dark>
-              <v-toolbar-title>Detail</v-toolbar-title>
-            </v-toolbar>
-            <v-card-text>
-              Looking to smush some URLs? You've come to the right place.
-              {{ this.$route.params.id }}
-              {{ JSON.stringify(this.details) }}
-            </v-card-text>
-            <v-card-actions>
-              <v-spacer />
-              <v-btn color="primary" to="new">Shorten</v-btn>
-            </v-card-actions>
-          </v-card>
+          <DetailCard :details="this.details"></DetailCard>
         </v-col>
       </v-row>
     </v-container>
@@ -26,11 +13,15 @@
 <script>
 import ky from "ky";
 import { baseURL } from "../consts/consts";
+import DetailCard from "../components/DetailCard";
 
 export default {
+  components: {
+    DetailCard
+  },
   data() {
     return {
-      details: null
+      details: {}
     };
   },
   async created() {

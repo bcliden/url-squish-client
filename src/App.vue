@@ -10,12 +10,20 @@
             <v-list-item-title>Home</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
-        <v-list-item link to="new">
+        <v-list-item link to="/new">
+          <v-list-item-action>
+            <v-icon>mdi-plus-circle</v-icon>
+          </v-list-item-action>
+          <v-list-item-content>
+            <v-list-item-title>New Link</v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+                <v-list-item link to="/list">
           <v-list-item-action>
             <v-icon>mdi-link</v-icon>
           </v-list-item-action>
           <v-list-item-content>
-            <v-list-item-title>New Link</v-list-item-title>
+            <v-list-item-title>All Links</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
       </v-list>
