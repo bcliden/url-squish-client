@@ -74,7 +74,7 @@ export default {
   },
   methods: {
     async submit() {
-      const { url, title, isPublic } = this;
+      let { url, title, isPublic } = this;
       if (!url.includes("http://") && !url.includes("https://")) {
         url = "http://" + url;
       }
